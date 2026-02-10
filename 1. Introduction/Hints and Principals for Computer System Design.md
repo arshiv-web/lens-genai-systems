@@ -1,4 +1,12 @@
+<style>
+blue { color: #1e90ff }
+red { color: red }
+</style>
+
+
 # <Paper Title>Hints and Principles for Computer System Design
+
+*Butler Lampson (Microsoft)*
 
 **Paper Link:**  [arXiv:2011.02455](https://arxiv.org/abs/2011.02455)
 **Video Link:** [Youtube](https://www.youtube.com/watch?v=TRLJ6XdmgnA)
@@ -7,36 +15,48 @@
 [PDF](../pdfs/Intro1.pdf)
 [Slides](../slides/Intro1.pdf)
 
-**Tags:** 
-#systems #ai #introduction
-
 ---
 
 ## TL;DR
-<!--
-50–100 words.
-State the problem, the core idea, and why it matters.
-This should be readable even if you never open the PDF again.
--->
+This paper distills decades of practical experience into a set of goals, principles, and design heuristics for building large computer systems. Rather than proposing a new system or algorithm, it provides a unifying framework—STEADY goals (Simple, Timely, Efficient, Adaptable, Dependable, Yummy) and AID techniques (Approximate, Incremental, Divide & Conquer)—to reason about tradeoffs in real systems. The paper matters because modern systems are complex, distributed, and long-lived, and success depends more on good abstractions and disciplined tradeoffs than on optimal algorithms. <blue>(Abstract, Sections 1–3)</blue>
 
 ---
 
 ## Overview
-<!--
-What problem does this paper address?
-Why is it important now?
-What is the high-level approach (minimal jargon)?
-Explicitly note key assumptions.
--->
+The paper addresses the problem that system designers face a vast design space with unclear requirements, many internal interfaces, and no obvious notion of “optimality.” Unlike algorithm design, system design is dominated by evolving requirements, tradeoffs, and operational realities. Lampson’s approach is to codify accumulated “folk wisdom” into explicit principles, goals, and oppositions that help designers avoid catastrophic mistakes and reason clearly about abstractions, specifications, modularity, efficiency, and evolution. The key assumption is that no single design is best; instead, good systems emerge from simplicity, clear specs, and conscious tradeoffs rather than cleverness. <blue>(Sections 1, 2, 3)</blue>
+
+---
+
+## Assumptions
+- Explicit assumptions:
+    + Systems evolve over time.
+    + Exact specifications are often impractical.
+    + Tradeoffs are unavoidable. (Sections 1, 3)
+
+- Implicit assumptions:
+    + Designers are rational but resource-limited.
+    + Long-term maintainability matters more than short-term optimality.
+    + Human understanding is the scarcest resource in system design.
 
 ---
 
 ## System / Model Abstraction
-<!--
-Describe the core abstraction or execution model.
-What are the main components or entities?
-What guarantees or invariants does the system rely on?
--->
+This paper does not define a concrete system architecture. Instead, it proposes a meta-abstraction for thinking about systems:
+
++ A system is defined by:
+
+    * An abstract state (what the client sees)
+    * A set of actions / operations that transform that state
+
++ A specification precisely defines allowed visible behaviors, hiding implementation details.
+
++ Code is a refinement of the spec: all visible code behaviors must be allowed by the spec.
+
+The abstraction model treats systems as state machines / transition systems, emphasizing:
++ separation of what (spec) from how (code),
++ safety vs. liveness properties,
++ and the importance of nondeterminism in concurrency and failure.
+<blue>(Section 2.1, 2.1.1, 2.1.2)</blue>
 
 ---
 
@@ -46,102 +66,173 @@ If possible, describe the system as a sequence of steps.
 Indicate where data flows, control decisions happen,
 and where learning or inference occurs.
 -->
-1.
-2.
-3.
+At a high level, the design process implied by the paper flows as:
+
+1. Identify goals (STEADY): decide what matters most (simplicity, timely, efficiency, dependability, adaptibility, yumminess.).
+
+2. Choose abstractions: define a simple abstract state meaningful to clients.
+
+3. Write a spec:
+    + Define abstract state.
+    + Define actions/operations and their effects.
+
+4. Refine into code:
+    + Introduce internal state and optimizations.
+    + Preserve visible behavior via abstraction functions.
+
+5. Apply techniques (AID):
+    + Approximate where exactness is unnecessary.
+    + Build incrementally.
+    + Divide complexity via interfaces and modularity.
+
+6. Iterate and evolve as requirements, scale, and usage change.
+
+This flow is conceptual, not procedural, and is meant to guide thinking rather than prescribe a rigid methodology. <blue>(Sections 1, 2, 3, 4)</blue>
 
 ---
 
 ## Current State of the Art
-<!--
-How is this problem handled today?
-What assumptions do existing approaches rely on?
-Which assumptions does this paper relax, remove, or challenge?
--->
+Before and alongside this work, system design knowledge largely existed as:
+
++ implicit experience,
++ scattered case studies,
++ or overly formal methods disconnected from practice.
+
+Many systems were built either:
+
++ with no clear spec, or
++ with specs that were leaky, overly complex, or brittle.
+
+The paper challenges the assumption that:
+
++ optimization or cleverness is the primary driver of success,
++ exactness is always desirable,
++ and that specs must fully determine implementations.
+
+Instead, it argues for good-enough, approximate, and evolvable designs grounded in clear abstractions. <blue>(Sections 1, 2.2, 3)</blue>
 
 ---
 
 ## Key Contributions
-<!--
-Summarize the main contributions briefly, then list them.
-Prefix especially novel ideas with CLEVER.
-Also note if related work coverage feels incomplete or biased.
--->
-- 
-- 
-- **CLEVER:** 
+
+Summary paragraph:
+
+The paper’s main contribution is a coherent vocabulary and mental framework for reasoning about system design tradeoffs. It unifies goals, techniques, abstractions, and oppositions into a single conceptual map that applies across operating systems, distributed systems, storage, networking, and modern cloud-scale systems.
+
+Specific contributions:
+
+**CLEVER**: STEADY goals as a multi-dimensional definition of “success” beyond performance. <blue>(Section 3.1)</blue>
+
+**CLEVER**: AID techniques as reusable ways to manage complexity and uncertainty. <blue>(Section 3.1.2)</blue>
+
+Explicit framing of abstraction + spec as the core intellectual task in system design. <blue>(Section 2.1)</blue>
+
+Clear articulation of safety vs. liveness in practical system terms. <blue>(Section 2.1.1)</blue>
+
+Systematic discussion of design oppositions to reason about tradeoffs. <blue>(Section 5)</blue>
+
+Related work is discussed selectively and honestly; the paper explicitly states it is not a comprehensive survey. Given its nature, this is appropriate. <blue>(Sections 1, References)</blue>
+
+---
+
+## Analogies & Intuitive Explanation
+
++ System design as navigation, not optimization: You are not finding the shortest path; you are avoiding cliffs.
+
++ Spec as a contract, not a blueprint: It tells clients what they can rely on, not how the system works.
+
++ Approximate systems as “springy, flaky parts”: They bend instead of breaking under load or uncertainty.
+
++ Divide & Conquer as cognitive load management: Interfaces let you think about one thing at a time.
+
+<blue>(Throughout Sections 1, 3, 5; reinforced in slides)</blue>
 
 ---
 
 ## AI vs Systems Boundary
-<!--
-Which parts are learned vs engineered?
-Which components affect correctness vs performance?
-Is learning essential, or could heuristics work?
--->
- 
+This is a pure systems paper:
+
++ No learned components.
++ No ML models.
++ All intelligence lies in design choices, abstractions, and tradeoffs.
 ---
 
-## Analogies / Intuition
-<!--
-Provide a simple analogy or mental model.
-Goal: conceptual clarity, not technical precision.
-Example: “Expectation: GPU bandwidth is a waterfall. Reality: it’s a straw.”
--->
+## Potential Impact
+Who cares:
+
++ Systems researchers
++ Practicing engineers
++ Architects of large-scale, long-lived systems
++ Designers of AI infrastructure and agentic systems
+
+Impact:
+
++ Shapes how generations of engineers think about abstractions, specs, and tradeoffs.
++ Influences education (e.g., MIT 6.826).
++ Provides a shared language for reasoning about complex systems rather than isolated optimizations.
+
+<blue>(Sections 1, 4; Slides overview)</blue>
 
 ---
 
-## Assumptions
-<!--
-List assumptions the paper relies on.
-Separate explicit from implicit ones.
--->
-- Explicit:
-- Implicit:
+## Risks, Failure Modes, Limitations
++ The guidance is qualitative, not prescriptive.
++ Principles may conflict; resolving conflicts requires judgment.
++ Offers no mechanical method for choosing between tradeoffs.
++ Relies heavily on designer experience; novices may misapply ideas.
++ Not a substitute for empirical validation or domain-specific constraints.
 
----
-
-## Failure Modes / Limitations
-<!--
-When does this break or degrade?
-Which workloads, scales, or data regimes are problematic?
-What does the paper not convincingly address?
--->
+<blue>(Sections 1, 5, Conclusion)</blue>
 
 ---
 
 ## Costs & Adoption Barriers
-<!--
-Consider broadly:
-- Engineering and design complexity
-- Runtime or performance overhead
-- Operational or maintenance cost
-- Industry adoption barriers
--->
++ Low implementation cost: no tooling required.
++ High cognitive cost: requires disciplined thinking and restraint.
++ Adoption barrier: organizations often reward features and speed over simplicity.
++ Cultural resistance: writing specs and thinking formally is often undervalued.
+
+The ideas are easy to adopt individually but hard to institutionalize consistently.
+<blue>(Sections 2, 4)</blue>
 
 ---
 
-## One Clever Thing
-<!--
-If you remember only one idea from this paper,
-what should it be?
--->
+## Special Notes
+
++ No embedded prompts found.
++ This paper is intentionally dense and reflective rather than instructional.
++ The slide deck complements the paper by emphasizing intuition and examples.
 
 ---
 
-## My Critique / Notes
-<!--
-Your honest take.
-What do you buy? What feels fragile, underspecified, or hand-wavy?
--->
+## My Critique
+This paper succeeds not by giving recipes, but by re-centering system design around specification and abstraction rather than implementation details. A key takeaway for me is that prematurely focusing on implementation technology is often a mistake; the harder and more valuable work is deciding what the system should be, not how to build it. Writing a spec forces clarity about state, actions, guarantees, and failure modes before committing to mechanisms.
 
----
+I strongly buy the emphasis on iteration, approximation, and incremental progress. The idea that optimization should be delayed—and only pursued when justified—is both counterintuitive and deeply practical. In particular, the paper reframes optimization: it is not always about time or performance; sometimes brute force or redundancy (e.g., TCP/IP retries) is the most cost-effective and robust solution.
 
-## Follow-up Ideas
-<!--
-Potential extensions, experiments, comparisons,
-or project ideas inspired by this paper.
--->
+The AID principles (Approximate, Incremental, Divide & Conquer) feel timeless. They explain why many successful systems look “inelegant” at the micro level but succeed at scale. The focus on dividing systems via abstractions and interfaces resonates strongly with modern distributed and AI systems, where complexity is unavoidable but must be contained.
+
+One limitation is that the guidance is intentionally qualitative. While this is appropriate given the nature of system design, it means the paper relies heavily on the judgment and taste of the designer. Novices may struggle to know when to apply which principle or how to resolve conflicts between them (e.g., simplicity vs. performance).
 
 
 ---
+
+## Follow up Ideas
+
++ Treat this paper as a pre-project checklist: revisit it before starting any serious system or infrastructure project.
+
++ Make writing a spec the first concrete artifact, even if it is informal or incomplete.
+
++ Explicitly ask, early on:
+
+    + What is the abstract state?
+    + What are the actions?
+    + What guarantees matter?
+
++ Delay optimization deliberately; assume “good enough” first and validate whether further optimization is justified.
+
++ Apply divide-and-conquer through interfaces aggressively, even when it feels slower in the short term.
+
++ Re-evaluate designs periodically with the question: *Am I optimizing something that doesn’t matter yet?*
+
+This paper is less about learning new techniques and more about resetting instincts. Its value compounds over time, especially as systems grow, evolve, and fail in ways that early designs did not anticipate.
