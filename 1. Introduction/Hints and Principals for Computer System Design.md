@@ -1,9 +1,3 @@
-<style>
-blue { color: #1e90ff }
-red { color: red }
-</style>
-
-
 # <Paper Title>Hints and Principles for Computer System Design
 
 *Butler Lampson (Microsoft)*
@@ -18,12 +12,12 @@ red { color: red }
 ---
 
 ## TL;DR
-This paper distills decades of practical experience into a set of goals, principles, and design heuristics for building large computer systems. Rather than proposing a new system or algorithm, it provides a unifying framework—STEADY goals (Simple, Timely, Efficient, Adaptable, Dependable, Yummy) and AID techniques (Approximate, Incremental, Divide & Conquer)—to reason about tradeoffs in real systems. The paper matters because modern systems are complex, distributed, and long-lived, and success depends more on good abstractions and disciplined tradeoffs than on optimal algorithms. <blue>(Abstract, Sections 1–3)</blue>
+This paper distills decades of practical experience into a set of goals, principles, and design heuristics for building large computer systems. Rather than proposing a new system or algorithm, it provides a unifying framework—STEADY goals (Simple, Timely, Efficient, Adaptable, Dependable, Yummy) and AID techniques (Approximate, Incremental, Divide & Conquer)—to reason about tradeoffs in real systems. The paper matters because modern systems are complex, distributed, and long-lived, and success depends more on good abstractions and disciplined tradeoffs than on optimal algorithms. [Abstract, Sections 1–3]
 
 ---
 
 ## Overview
-The paper addresses the problem that system designers face a vast design space with unclear requirements, many internal interfaces, and no obvious notion of “optimality.” Unlike algorithm design, system design is dominated by evolving requirements, tradeoffs, and operational realities. Lampson’s approach is to codify accumulated “folk wisdom” into explicit principles, goals, and oppositions that help designers avoid catastrophic mistakes and reason clearly about abstractions, specifications, modularity, efficiency, and evolution. The key assumption is that no single design is best; instead, good systems emerge from simplicity, clear specs, and conscious tradeoffs rather than cleverness. <blue>(Sections 1, 2, 3)</blue>
+The paper addresses the problem that system designers face a vast design space with unclear requirements, many internal interfaces, and no obvious notion of “optimality.” Unlike algorithm design, system design is dominated by evolving requirements, tradeoffs, and operational realities. Lampson’s approach is to codify accumulated “folk wisdom” into explicit principles, goals, and oppositions that help designers avoid catastrophic mistakes and reason clearly about abstractions, specifications, modularity, efficiency, and evolution. The key assumption is that no single design is best; instead, good systems emerge from simplicity, clear specs, and conscious tradeoffs rather than cleverness. [Sections 1, 2, 3]
 
 ---
 
@@ -56,7 +50,7 @@ The abstraction model treats systems as state machines / transition systems, emp
 + separation of what (spec) from how (code),
 + safety vs. liveness properties,
 + and the importance of nondeterminism in concurrency and failure.
-<blue>(Section 2.1, 2.1.1, 2.1.2)</blue>
+[Section 2.1, 2.1.1, 2.1.2]
 
 ---
 
@@ -87,7 +81,7 @@ At a high level, the design process implied by the paper flows as:
 
 6. Iterate and evolve as requirements, scale, and usage change.
 
-This flow is conceptual, not procedural, and is meant to guide thinking rather than prescribe a rigid methodology. <blue>(Sections 1, 2, 3, 4)</blue>
+This flow is conceptual, not procedural, and is meant to guide thinking rather than prescribe a rigid methodology. [Sections 1, 2, 3, 4]
 
 ---
 
@@ -109,7 +103,7 @@ The paper challenges the assumption that:
 + exactness is always desirable,
 + and that specs must fully determine implementations.
 
-Instead, it argues for good-enough, approximate, and evolvable designs grounded in clear abstractions. <blue>(Sections 1, 2.2, 3)</blue>
+Instead, it argues for good-enough, approximate, and evolvable designs grounded in clear abstractions. [Sections 1, 2.2, 3]
 
 ---
 
@@ -121,17 +115,17 @@ The paper’s main contribution is a coherent vocabulary and mental framework fo
 
 Specific contributions:
 
-**CLEVER**: STEADY goals as a multi-dimensional definition of “success” beyond performance. <blue>(Section 3.1)</blue>
+**CLEVER**: STEADY goals as a multi-dimensional definition of “success” beyond performance. [Section 3.1]
 
-**CLEVER**: AID techniques as reusable ways to manage complexity and uncertainty. <blue>(Section 3.1.2)</blue>
+**CLEVER**: AID techniques as reusable ways to manage complexity and uncertainty. [Section 3.1.2]
 
-Explicit framing of abstraction + spec as the core intellectual task in system design. <blue>(Section 2.1)</blue>
+Explicit framing of abstraction + spec as the core intellectual task in system design. [Section 2.1]
 
-Clear articulation of safety vs. liveness in practical system terms. <blue>(Section 2.1.1)</blue>
+Clear articulation of safety vs. liveness in practical system terms. [Section 2.1.1]
 
-Systematic discussion of design oppositions to reason about tradeoffs. <blue>(Section 5)</blue>
+Systematic discussion of design oppositions to reason about tradeoffs. [Section 5]
 
-Related work is discussed selectively and honestly; the paper explicitly states it is not a comprehensive survey. Given its nature, this is appropriate. <blue>(Sections 1, References)</blue>
+Related work is discussed selectively and honestly; the paper explicitly states it is not a comprehensive survey. Given its nature, this is appropriate. [Sections 1, References]
 
 ---
 
@@ -145,7 +139,7 @@ Related work is discussed selectively and honestly; the paper explicitly states 
 
 + Divide & Conquer as cognitive load management: Interfaces let you think about one thing at a time.
 
-<blue>(Throughout Sections 1, 3, 5; reinforced in slides)</blue>
+[Throughout Sections 1, 3, 5; reinforced in slides]
 
 ---
 
@@ -171,7 +165,7 @@ Impact:
 + Influences education (e.g., MIT 6.826).
 + Provides a shared language for reasoning about complex systems rather than isolated optimizations.
 
-<blue>(Sections 1, 4; Slides overview)</blue>
+[Sections 1, 4; Slides overview]
 
 ---
 
@@ -182,7 +176,7 @@ Impact:
 + Relies heavily on designer experience; novices may misapply ideas.
 + Not a substitute for empirical validation or domain-specific constraints.
 
-<blue>(Sections 1, 5, Conclusion)</blue>
+[Sections 1, 5, Conclusion]
 
 ---
 
@@ -193,7 +187,7 @@ Impact:
 + Cultural resistance: writing specs and thinking formally is often undervalued.
 
 The ideas are easy to adopt individually but hard to institutionalize consistently.
-<blue>(Sections 2, 4)</blue>
+[Sections 2, 4]
 
 ---
 
