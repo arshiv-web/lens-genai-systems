@@ -21,19 +21,6 @@ The paper addresses the problem that system designers face a vast design space w
 
 ---
 
-## Assumptions
-- Explicit assumptions:
-    + Systems evolve over time.
-    + Exact specifications are often impractical.
-    + Tradeoffs are unavoidable. (Sections 1, 3)
-
-- Implicit assumptions:
-    + Designers are rational but resource-limited.
-    + Long-term maintainability matters more than short-term optimality.
-    + Human understanding is the scarcest resource in system design.
-
----
-
 ## System / Model Abstraction
 This paper does not define a concrete system architecture. Instead, it proposes a meta-abstraction for thinking about systems:
 
@@ -168,6 +155,20 @@ Impact:
 [Sections 1, 4; Slides overview]
 
 ---
+
+## Assumptions
+- Explicit assumptions:
+    + Systems evolve over time.
+    + Exact specifications are often impractical.
+    + Tradeoffs are unavoidable. (Sections 1, 3)
+
+- Implicit assumptions:
+    + Designers are rational but resource-limited.
+    + Long-term maintainability matters more than short-term optimality.
+    + Human understanding is the scarcest resource in system design.
+
+---
+
 
 ## Risks, Failure Modes, Limitations
 + The guidance is qualitative, not prescriptive.
